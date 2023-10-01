@@ -96,7 +96,7 @@ noscript > div {
 }
 
 body {
-  background-image: url('./assets/wall-2059909.png');
+  background-image: "wall-2059909.png";
   background-attachment: fixed;
   background-size: cover;
 }

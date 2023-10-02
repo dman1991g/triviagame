@@ -89,14 +89,14 @@
   },
   "q9": {
     "id": "q9",
-    "question": "Name the movie that matches the following plot summary: 'A maverick teacher emboldens his students to new heights of self-expression.'",
+    "question": "Who is the only actor to receive an Oscar nomination for acting in a Lord of the Rings movie?'",
     "answers": [
-      "Raging Bull",
-      "Modern Times",
-      "The Wizard of Oz",
-      "Dead Poets Society"
+      "Christopher Lee",
+      "Ian McKellen",
+      "Elijah Wood",
+      "Andy Serkis"
     ],
-    "correctAnswer": "Dead Poets Society"
+    "correctAnswer": "Ian Mckellen"
   },
   "q10": {
     "id": "q10",
@@ -133,25 +133,24 @@
   },
   "q13": {
     "id": "q13",
-    "question": "What was the name of Dustin Hoffman's character in the 1967 film 'The Graduate'?",
+    "question": " What was the first feature-length animated movie ever released?",
     "answers": [
-      "Martin Jackson",
-      "Leo Quince",
-      "Harold Buck",
-      "Ben Braddock"
+      "Snow White and the Seven Dwarfs",
+      "Paw Patrol",
+      "Mulan",
+      "Cinderella"
     ],
-    "correctAnswer": "Ben Braddock"
+    "correctAnswer": "Snow White and the Seven Dwarfs"
   },
   "q14": {
     "id": "q14",
-    "question": "What is the plot of the movie Memento?",
+    "question": "In The Matrix, does Neo take the blue pill or the red pill?",
     "answers": [
-      "A mother personally challenges the local authorities to solve her daughter's murder.",
-      "A man with short-term memory loss attempts to track down his wife's murderer.",
-      "Two grifters team up to pull off the ultimate con.",
-      "The story an English officer who successfully united and led the Arab tribes during World War I."
+      "Blue",
+      "Red",
+      
     ],
-    "correctAnswer": "A man with short-term memory loss attempts to track down his wife's murderer."
+    "correctAnswer": "Red"
   },
   "q15": {
     "id": "q15",
@@ -164,16 +163,16 @@
     ],
     "correctAnswer": "Gwyneth Paltrow"
   },
-  "q16": {
+ "q16": {
     "id": "q16",
-    "question": "Which film contains the character Jules Winnfield?",
+    "question": "What animated classic was the first film of the late 20th century "Disney Renaissance?"?",
     "answers": [
-      "A Streetcar Named Desire",
-      "Grease",
-      "Gangs of New York",
-      "Pulp Fiction"
+      "101 Dalmations",
+      "Sleeping Beauty",
+      "Little Mermaid",
+      "Stitch"
     ],
-    "correctAnswer": "Pulp Fiction"
+    "correctAnswer": "Little Mermaid"
   },
   "q17": {
     "id": "q17",
@@ -221,14 +220,14 @@
   },
   "q21": {
     "id": "q21",
-    "question": "Which director directed '2001: A Space Odyssey'?",
+    "question": "Who wrote the screenplay for Rocky?",
     "answers": [
       "Steven Spielberg",
-      "Francis Ford Coppola",
-      "Stanley Kubrick",
-      "Martin Scorsese"
+      "George Lucas",
+      "Sylvester Stallone",
+      "James Gunn"
     ],
-    "correctAnswer": "Stanley Kubrick"
+    "correctAnswer": "Sylvester Stallone"
   },
   "q22": {
     "id": "q22",
@@ -273,5 +272,15 @@
       "Thomas Hardy"
     ],
     "correctAnswer": "Sherlock Holmes"
-  }
+  },
+  "q26": {
+    "id": "q26",
+    "question": "What animated classic was the first film of the late 20th century "Disney Renaissance?"?",
+    "answers": [
+      "101 Dalmations",
+      "Sleeping Beauty",
+      "Little Mermaid",
+      "Stitch"
+    ],
+    "correctAnswer": "Little Mermaid"
 }

@@ -165,7 +165,7 @@
   },
  "q16": {
     "id": "q16",
-    "question": "What animated classic was the first film of the late 20th century "Disney Renaissance?"?",
+    "question": "What animated classic was the first film of the late 20th century "Disney Renaissance?",
     "answers": [
       "101 Dalmations",
       "Sleeping Beauty",
@@ -272,15 +272,5 @@
       "Thomas Hardy"
     ],
     "correctAnswer": "Sherlock Holmes"
-  },
-  "q26": {
-    "id": "q26",
-    "question": "What animated classic was the first film of the late 20th century "Disney Renaissance?"?",
-    "answers": [
-      "101 Dalmations",
-      "Sleeping Beauty",
-      "Little Mermaid",
-      "Stitch"
-    ],
-    "correctAnswer": "Little Mermaid"
+  }
 }

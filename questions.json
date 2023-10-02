@@ -144,14 +144,14 @@
   },
   "q14": {
     "id": "q14",
-    "question": "What is the plot of the movie Memento?",
+    "question": "What was the first feature-length animated movie ever released?",
     "answers": [
-      "A mother personally challenges the local authorities to solve her daughter's murder.",
-      "A man with short-term memory loss attempts to track down his wife's murderer.",
-      "Two grifters team up to pull off the ultimate con.",
-      "The story an English officer who successfully united and led the Arab tribes during World War I."
+      "Cinderella",
+      "Snow White and the Seven Dwarfs",
+      "Beauty and the Beast",
+      "Paw Patrol."
     ],
-    "correctAnswer": "A man with short-term memory loss attempts to track down his wife's murderer."
+    "correctAnswer": "Snow White and The seven Dwarfs"
   },
   "q15": {
     "id": "q15",

@@ -89,14 +89,14 @@
   },
   "q9": {
     "id": "q9",
-    "question": "Name the movie that matches the following plot summary: 'A maverick teacher emboldens his students to new heights of self-expression.'",
+    "question": "Who is the only actor to receive an Oscar nomination for acting in a Lord of the Rings movie?",
     "answers": [
-      "Raging Bull",
-      "Modern Times",
-      "The Wizard of Oz",
-      "Dead Poets Society"
+      "Ian Mckellen",
+      "Elijah Wood",
+      "Andy Serkis",
+      "Christopher Lee"
     ],
-    "correctAnswer": "Dead Poets Society"
+    "correctAnswer": "Ian Mckellen"
   },
   "q10": {
     "id": "q10",
@@ -133,14 +133,14 @@
   },
   "q13": {
     "id": "q13",
-    "question": "What was the name of Dustin Hoffman's character in the 1967 film 'The Graduate'?",
+    "question": "What animated classic was the first film of the late 20th century Disney Renaissance?",
     "answers": [
-      "Martin Jackson",
-      "Leo Quince",
-      "Harold Buck",
-      "Ben Braddock"
+      "Little Mermaid",
+      "Lilo & Stitch",
+      "Sleeping Beauty",
+      "101 Dalmations"
     ],
-    "correctAnswer": "Ben Braddock"
+    "correctAnswer": "Little Mermaid"
   },
   "q14": {
     "id": "q14",

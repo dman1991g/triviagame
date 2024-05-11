@@ -28,10 +28,10 @@ const nextSectionTriggers = [startBtn, ...nextBtns]
 const sections = [startSection, ...questionGroups, endSection]
 
 // Create an array from all question <li> elements in detailed results modal
-const resultsQuestions = [ ...questionsInModal ]
+const resultsQuestions = [...questionsInModal]
 
 // Create an array from all stat <li> elements at the end of the game
-const resultsStats = [ ...userStatsItems ]
+const resultsStats = [...userStatsItems]
 
 // Create array from the questions.json object keys, which will help in selecting random questions
 const questionsKeysArray = Object.keys(questions)
@@ -71,13 +71,11 @@ currentUserDetailedResults.set("results", [])
 const usersStats = new Map()
 usersStats.set("stats", [])
 
-
 // Add fake users’ usernames to gameUsers Set and the full fake user objects to userStats Map
 for (const user of usersValuesArray) {
   gameUsers.add(user.username)
   usersStats.entries().next().value[1].push(user)
 }
-
 
 // Add 10 random questions from JSON file to the randomTen array
 while (randomTen.size < 10) {
@@ -93,15 +91,10 @@ while (randomTen.size < 10) {
 // Get access to the set's values
 const randomQuestionSet = randomTen.values()
 
-
-// CONTINUE WRITING YOUR CODE BELOW
-
 /* 
    Check if DOM's readyState is "complete", then move all question sections 
    out of view 
 */
-
-
 document.onreadystatechange = (e) => {
   if (document.readyState === "complete") {
     sections.forEach((section, index) => {
@@ -117,13 +110,11 @@ const setStartGameInvalidState = () => {
   startBtn.setAttribute('disabled', '')
 }
 
-
 const setStartGameValidState = () => {
   usernameInput.style.border = "2px solid black"
   validationMsg.style.display = "none"
   startBtn.removeAttribute('disabled')
 }
-
 
 // Create helper function to check if gameUsers Set already contains the username entered
 const userExists = (username) => {
@@ -133,7 +124,6 @@ const userExists = (username) => {
     return false
   }
 }
-
 
 // Create helper function to check validity of usernameInput value using the Validator.js package
 const isValid = (usernameInputValue) => {
@@ -163,7 +153,6 @@ const isValid = (usernameInputValue) => {
   }
 }
 
-
 // Create an event listener callback function to sanitize and validate the input value from the username field
 const checkUsernameValidity = () => {
   const sanitizedInput = DOMPurify.sanitize(usernameInput.value)
@@ -190,7 +179,6 @@ const checkUsernameValidity = () => {
 
 // Define a function to toggle the select indicator on any given answer button
 const toggleSelectIndicator = (e) => {
-
   userSelection = true
 
   if (e.target.id.includes("answer-selection")) {
@@ -236,8 +224,14 @@ const toggleSelectIndicator = (e) => {
       e.target.parentElement.parentElement.nextElementSibling.removeAttribute('disabled')
     }
   }
-}
 
+  // Verify if the selected answer is correct
+  if (selectedAnswer === correctAnswer) {
+    e.target.style.color = "green";
+  } else {
+    e.target.style.color = ""; // Reset color if the answer is incorrect
+  }
+}
 
 // Define a function to check whether a given answer is correct and update user score
 const checkAnswer = (question, userAnswer, correct) => {
@@ -251,7 +245,7 @@ const checkAnswer = (question, userAnswer, correct) => {
         outcome: "Correct"
       })
 
-      runningScore+=100
+      runningScore += 100
  
     } else {
       results[1].push({
@@ -295,7 +289,6 @@ const gameEnd = () => {
   })
 }
 
-
 // Define function to display question/answer set from randomTen Set
 const loadQuestionAndAnswers = () => {
 
@@ -307,20 +300,13 @@ const loadQuestionAndAnswers = () => {
  
     const answerNodes = Array.from(sections[nextQuestionNumber].children[1].children)
  
-    answerNodes.forEach((node, index) => {
-      node.children[1].innerHTML = currentQuestion["answers"][index]
-      // Check if the answer is the correct one and add a class or style accordingly
-      if (node.children[1].innerHTML === correctAnswer) {
-        node.children[1].style.color = "green";
-      }
-    });
+    answerNodes.forEach((node, index) => node.children[1].innerHTML = currentQuestion["answers"][index])
 
     setTimeout(() => {
       container.style.background = "rgba(11, 70, 96, 0.75)"
     }, 350)
   }
 }
-
 
 // Define function to progress to the next section
 const goToNextSection = () => {
@@ -330,7 +316,6 @@ const goToNextSection = () => {
     section.style.opacity = 1
   })
 }
-
 
 // Create an event listener callback function to move to the next <section> element
 const nextSectionClickListener = (e) => {
@@ -364,17 +349,14 @@ nextSectionTriggers.forEach((trigger) => {
   trigger.addEventListener('click', (e) => nextSectionClickListener(e))
 })
 
-
 // Add listeners to all the answer buttons
 answers.forEach((answer) => {
   answer.addEventListener('click', (e) => toggleSelectIndicator(e))
 })
 
-
 // Add input and blur listeners to username input field
 usernameInput.addEventListener('input', checkUsernameValidity)
 usernameInput.addEventListener('blur', checkUsernameValidity)
-
 
 // Add a click listener to the Play Again button
 playAgainBtn.addEventListener('click', () => window.location.reload())

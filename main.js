@@ -307,7 +307,13 @@ const loadQuestionAndAnswers = () => {
  
     const answerNodes = Array.from(sections[nextQuestionNumber].children[1].children)
  
-    answerNodes.forEach((node, index) => node.children[1].innerHTML = currentQuestion["answers"][index])
+    answerNodes.forEach((node, index) => {
+      node.children[1].innerHTML = currentQuestion["answers"][index]
+      // Check if the answer is the correct one and add a class or style accordingly
+      if (node.children[1].innerHTML === correctAnswer) {
+        node.children[1].style.color = "green";
+      }
+    });
 
     setTimeout(() => {
       container.style.background = "rgba(11, 70, 96, 0.75)"

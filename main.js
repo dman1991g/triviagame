@@ -257,5 +257,4 @@ Promise.all([
     resultsQuestions.forEach((rq, index) => {
       rq.children[1].style["font-family"] = "var(--accent-font)";
       rq.children[0].children[0].innerHTML = results[1][index].question;
-      rq.children[0].children[1].children[0].innerHTML = results[1][index].selected;
-    });
+      rq.children[0].children[1].children[0].innerHTML = results[1][index].selectedAnswer;}

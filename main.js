@@ -259,5 +259,5 @@ Promise.all([
       rq.children[0].children[0].innerHTML = results[1][index].question;
       rq.children[0].children[1].children[0].innerHTML = results[1][index].selectedAnswer;
     });
-  }
-}
+  };
+});

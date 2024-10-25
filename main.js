@@ -118,37 +118,20 @@ const setStartGameValidState = () => {
 
 // Create helper function to check if gameUsers Set already contains the username entered
 const userExists = (username) => {
-  if (gameUsers.has(username)) {
-    return true
-  } else {
-    return false
-  }
+  return gameUsers.has(username)
 }
 
 // Create helper function to check validity of usernameInput value using the Validator.js package
 const isValid = (usernameInputValue) => {
   if (!validator.isEmpty(usernameInputValue) && validator.isLength(usernameInputValue, { min: 5 })) {
-    return {
-      valid: true,
-      msg: null
-    }
+    return { valid: true, msg: null }
   } else {
- 
     if (validator.isEmpty(usernameInputValue)) {
-      return {
-        valid: false,
-        msg: "Required"
-      }
+      return { valid: false, msg: "Required" }
     } else if (!validator.isLength(usernameInputValue, { min: 5 })) {
-      return {
-        valid: false,
-        msg: "Minimum 5 characters"
-      }
+      return { valid: false, msg: "Minimum 5 characters" }
     } else {
-      return {
-        valid: false,
-        msg: "Input invalid"
-      }
+      return { valid: false, msg: "Input invalid" }
     }
   }
 }
@@ -158,19 +141,19 @@ const checkUsernameValidity = () => {
   const sanitizedInput = DOMPurify.sanitize(usernameInput.value)
   const trimmedInput = validator.trim(sanitizedInput)
   const escapedInput = validator.escape(trimmedInput)
- 
+
   const validation = isValid(escapedInput)
   const usernameNotTaken = userExists(escapedInput)
- 
+
   if (!validation.valid || usernameNotTaken) {
     setStartGameInvalidState()
- 
+
     if (usernameNotTaken) {
       validationMsg.innerHTML = "Username already in use"
     } else {
       validationMsg.innerHTML = validation.msg
     }
- 
+
   } else {
     currentUser = escapedInput
     setStartGameValidState()
@@ -187,7 +170,7 @@ const toggleSelectIndicator = (e) => {
       answerBtn.children[0].style.border = "2px solid #fff"
       answerBtn.children[0].style.boxShadow = "none"
     })
- 
+
     e.target.children[0].style.border = "none"
     e.target.children[0].style["box-shadow"] = "var(--blue-neon-box)"
 
@@ -204,7 +187,7 @@ const toggleSelectIndicator = (e) => {
       answerBtn.children[0].style.border = "2px solid #fff"
       answerBtn.children[0].style.boxShadow = "none"
     })
- 
+
     if (e.target.id.includes("-indicator")) {
 
       e.target.style.border = "none"
@@ -227,131 +210,16 @@ const toggleSelectIndicator = (e) => {
 
   // Verify if the selected answer is correct
   if (selectedAnswer === correctAnswer) {
-    e.target.style.color = "green";
+    e.target.style.color = "green"
   } else {
-    e.target.style.color = ""; // Reset color if the answer is incorrect
+    e.target.style.color = "" // Reset color if the answer is incorrect
   }
 }
 
-// Define a function to check whether a given answer is correct and update user score
-const checkAnswer = (question, userAnswer, correct) => {
-  const results = currentUserDetailedResults.entries().next().value
-
-  if (results[1].length < 10) {
-    if (userAnswer === correct) {
-      results[1].push({
-        question,
-        selectedAnswer,
-        outcome: "Correct"
-      })
-
-      runningScore += 100
- 
-    } else {
-      results[1].push({
-        question,
-        selectedAnswer,
-        outcome: "Incorrect"
-      })
-    }
-  }
-}
-
-// Define function to handle game end logic
-const gameEnd = () => {
-  const score = runningScore.toString()
-  const results = currentUserDetailedResults.entries().next().value
-  const stats = usersStats.entries().next().value
-
-  finalScoreSpan.innerHTML = score
-
-  stats[1].push({ username: currentUser,  score: runningScore})
-
-  const sortedStats = stats[1].sort((a, b) => (a.score < b.score) ? 1 : -1)
-
-  resultsStats.forEach((rs, index) => {
-    rs.children[0].innerHTML = sortedStats[index].username
-    rs.children[1].innerHTML = sortedStats[index].score.toString()
-  })
-
-  resultsQuestions.forEach((rq, index) => {
-    rq.children[1].style["font-family"] = "var(--accent-font)"
-    rq.children[0].children[0].innerHTML = results[1][index].question
-    rq.children[0].children[1].children[0].innerHTML = results[1][index].selectedAnswer
-
-    rq.children[1].innerHTML = results[1][index].outcome
-
-    if (results[1][index].outcome === "Correct") {
-      rq.children[1].style.color = "green"
-    } else if (results[1][index].outcome === "Incorrect") {
-      rq.children[1].style.color = "var(--error-color)"
-    }
-  })
-}
-
-// Define function to display question/answer set from randomTen Set
-const loadQuestionAndAnswers = () => {
-
-  if (nextQuestionNumber != lastSectionIndex) {
-
-    currentQuestion = randomQuestionSet.next().value
-    correctAnswer = currentQuestion.correctAnswer
-    sections[nextQuestionNumber].children[0].innerHTML = currentQuestion["question"]
- 
-    const answerNodes = Array.from(sections[nextQuestionNumber].children[1].children)
- 
-    answerNodes.forEach((node, index) => node.children[1].innerHTML = currentQuestion["answers"][index])
-
-    setTimeout(() => {
-      container.style.background = "rgba(11, 70, 96, 0.75)"
-    }, 350)
-  }
-}
-
-// Define function to progress to the next section
-const goToNextSection = () => {
-  sections.forEach((section, loopIndex) => {
-    sectionOffset = loopIndex - displayedSectionIndex
-    section.style.transform = `translateX(${sectionOffset * 100}%)`
-    section.style.opacity = 1
-  })
-}
-
-// Create an event listener callback function to move to the next <section> element
-const nextSectionClickListener = (e) => {
-  if (e.target.id === "start-btn") {
-    gameUsers.add(currentUser)
-    currentUserDisplay.children[0].innerHTML = currentUser
-    currentUserDisplay.style.display = "block"
-  }
-
-  if (correctAnswer && selectedAnswer) {
-    checkAnswer(currentQuestion["question"], selectedAnswer, correctAnswer)
-  }
- 
-  if (displayedSectionIndex === lastSectionIndex - 1) {
-    userSelection = false
-    displayedSectionIndex++
-    gameEnd()
-    goToNextSection()
-   
-  } else {
-    loadQuestionAndAnswers()
-    userSelection = false
-    displayedSectionIndex++
-    nextQuestionNumber++
-    goToNextSection()
-  }
-}
-
-// Add listener to all nextSectionTrigger buttons
-nextSectionTriggers.forEach((trigger) => {
-  trigger.addEventListener('click', (e) => nextSectionClickListener(e))
-})
-
-// Add listeners to all the answer buttons
+// **iOS touch event handler**: Handles both click and touch events
 answers.forEach((answer) => {
-  answer.addEventListener('click', (e) => toggleSelectIndicator(e))
+  answer.addEventListener('click', toggleSelectIndicator)
+  answer.addEventListener('touchend', toggleSelectIndicator) // Added touch support
 })
 
 // Add input and blur listeners to username input field
@@ -366,10 +234,10 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js')
       .then((registration) => {
-        console.log('Service Worker registered with scope:', registration.scope);
+        console.log('Service Worker registered with scope:', registration.scope)
       })
       .catch((error) => {
-        console.error('Service Worker registration failed:', error);
-      });
-  });
+        console.error('Service Worker registration failed:', error)
+      })
+  })
 }

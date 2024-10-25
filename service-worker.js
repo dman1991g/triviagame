@@ -7,7 +7,7 @@ const urlsToCache = [
   './index.html',
   './style.css',
   './main.js',
-  './manifest.json',
+  './modal.js',
   './images/logo.png', // Replace with your actual image paths
   './favicon.ico', // Replace with your actual favicon path
   './questions.json', // Add your JSON file here

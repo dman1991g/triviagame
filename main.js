@@ -2,7 +2,7 @@
 import questions from './questions.json' assert { type: 'json' };
 import users from './users.json' assert { type: 'json' };
 
-// Get all DOM elements with jQuery
+// Cache DOM elements with jQuery
 const $container = $('.container');
 const $usernameInput = $('#username');
 const $validationMsg = $('#validation-msg');
@@ -11,12 +11,10 @@ const $nextBtns = $('.next-question');
 const $playAgainBtn = $('#play-again');
 const $startSection = $('#start');
 const $currentUserDisplay = $('#user-display');
+const $questionGroups = $('.question');
 const $endSection = $('#game-end');
 const $finalScoreSpan = $('#score-value');
-const $answers = $('.answer');
-const $modal = $('#modal');
-const $openModal = $('#show-details');
-const $closeModal = $('#modal-close');
+const $answerButtons = $('.answer');
 
 // Variables for managing the game state
 let currentUser = '';
@@ -38,8 +36,8 @@ const loadQuestion = () => {
     const currentQuestion = questions[currentQuestionIndex];
     $('.question-title').text(currentQuestion.question);
 
-    $answers.each((index, element) => {
-        $(element).find('.answer-text').text(currentQuestion.answers[index]);
+    $answerButtons.each((index, button) => {
+        $(button).find('.answer-text').text(currentQuestion.answers[index]);
     });
 
     correctAnswer = currentQuestion.correctAnswer;
@@ -73,38 +71,16 @@ const nextQuestion = () => {
 // Function to end the game and display the score
 const endGame = () => {
     $endSection.show();
-    $finalScoreSpan.text(runningScore);
+    $finalScoreSpan.text(runningScore.toString());
     $container.hide(); // Hide the main container
 };
 
 // Event listeners
 $startBtn.on('click', startGame);
-$answers.on('click', selectAnswer);
+$answerButtons.on('click', selectAnswer);
 $nextBtns.on('click', nextQuestion);
 $playAgainBtn.on('click', () => {
-    location.reload(); // Reload the page to restart the game
-});
-
-// Modal functionality
-$openModal.on("click", () => {
-    $modal[0].showModal();
-    $modal[0].scrollTop = 0;
-});
-
-$modal.on('click', (e) => {
-    if (e.target.nodeName === "DIALOG") {
-        $modal[0].close();
-        $openModal.blur();
-    }
-});
-
-$closeModal.on("click", () => {
-    $modal.attr("modal-closing", "");
-    $modal.on("animationend", () => {
-        $modal.removeAttr("modal-closing");
-        $modal[0].close();
-        $openModal.blur();
-    });
+    window.location.reload(); // Reload the page to restart the game
 });
 
 // Check for service worker registration

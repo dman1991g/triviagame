@@ -1,103 +1,121 @@
 // Import JSON files
 import questions from './questions.json' assert { type: 'json' };
+import users from './users.json' assert { type: 'json' };
 
-// Get all DOM elements
-const container = document.querySelector('.container');
-const usernameInput = document.getElementById('username');
-const validationMsg = document.getElementById('validation-msg');
-const startBtn = document.getElementById('start-btn');
-const nextBtn = document.querySelector('.next-question');
-const playAgainBtn = document.getElementById('play-again');
-const startSection = document.getElementById('start');
-const currentUserDisplay = document.getElementById('user-display');
-const endSection = document.getElementById('game-end');
-const finalScoreSpan = document.getElementById('score-value');
-const modal = document.getElementById('modal');
-const closeModal = document.getElementById('modal-close');
-const answerButtons = document.querySelectorAll('.answer');
+// Get all DOM elements with jQuery
+const $container = $('.container');
+const $usernameInput = $('#username');
+const $validationMsg = $('#validation-msg');
+const $startBtn = $('#start-btn');
+const $nextBtns = $('.next-question');
+const $playAgainBtn = $('#play-again');
+const $startSection = $('#start');
+const $currentUserDisplay = $('#user-display');
+const $endSection = $('#game-end');
+const $finalScoreSpan = $('#score-value');
+const $answers = $('.answer');
+const $modal = $('#modal');
+const $openModal = $('#show-details');
+const $closeModal = $('#modal-close');
 
-// Game state variables
+// Variables for managing the game state
 let currentUser = '';
 let runningScore = 0;
 let currentQuestionIndex = 0;
 let selectedAnswer = '';
 let correctAnswer = '';
 
-// Start Game
+// Function to start the game
 const startGame = () => {
-    currentUser = usernameInput.value;
-    currentUserDisplay.innerText = `Player: ${currentUser}`;
-    currentUserDisplay.style.display = 'block';
-    startSection.style.display = 'none';
+    currentUser = $usernameInput.val();
+    $currentUserDisplay.text(`Player: ${currentUser}`).show();
+    $startSection.hide();
     loadQuestion();
 };
 
-// Load question and display modal
+// Function to load a question and answers
 const loadQuestion = () => {
     const currentQuestion = questions[currentQuestionIndex];
-    document.querySelector('.question-title').innerText = currentQuestion.question;
+    $('.question-title').text(currentQuestion.question);
 
-    // Populate answers
-    const answerNodes = Array.from(document.querySelectorAll('.answer-text'));
-    answerNodes.forEach((node, index) => {
-        node.innerText = currentQuestion.answers[index];
-        answerButtons[index].style.color = ''; // Reset answer colors
+    $answers.each((index, element) => {
+        $(element).find('.answer-text').text(currentQuestion.answers[index]);
     });
 
     correctAnswer = currentQuestion.correctAnswer;
-
-    // Open modal for question display
-    modal.showModal();
 };
 
-// Answer selection
+// Function to handle answer selection
 const selectAnswer = (e) => {
-    selectedAnswer = e.target.querySelector('.answer-text').innerText;
+    selectedAnswer = $(e.target).find('.answer-text').text();
 
     if (selectedAnswer === correctAnswer) {
         runningScore += 100;
-        e.target.style.color = 'green';
+        $(e.target).css('color', 'green'); // Indicate correct answer
     } else {
-        e.target.style.color = 'red';
+        $(e.target).css('color', 'red'); // Indicate incorrect answer
     }
 
-    nextBtn.removeAttribute('disabled'); // Enable next button
+    $nextBtns.prop('disabled', false); // Enable next button
 };
 
-// Next question or end game
+// Function to go to the next question or end the game
 const nextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
         loadQuestion();
-        nextBtn.setAttribute('disabled', ''); // Disable next button
+        $nextBtns.prop('disabled', true); // Disable next button
     } else {
         endGame();
     }
 };
 
-// End Game
+// Function to end the game and display the score
 const endGame = () => {
-    endSection.style.display = 'block';
-    finalScoreSpan.innerText = runningScore.toString();
-    container.style.display = 'none';
-    modal.close(); // Close the modal at the end
+    $endSection.show();
+    $finalScoreSpan.text(runningScore);
+    $container.hide(); // Hide the main container
 };
 
-// Modal close event listeners
-modal.addEventListener('click', (e) => {
+// Event listeners
+$startBtn.on('click', startGame);
+$answers.on('click', selectAnswer);
+$nextBtns.on('click', nextQuestion);
+$playAgainBtn.on('click', () => {
+    location.reload(); // Reload the page to restart the game
+});
+
+// Modal functionality
+$openModal.on("click", () => {
+    $modal[0].showModal();
+    $modal[0].scrollTop = 0;
+});
+
+$modal.on('click', (e) => {
     if (e.target.nodeName === "DIALOG") {
-        modal.close();
+        $modal[0].close();
+        $openModal.blur();
     }
 });
 
-closeModal.addEventListener("click", () => {
-    modal.close();
+$closeModal.on("click", () => {
+    $modal.attr("modal-closing", "");
+    $modal.on("animationend", () => {
+        $modal.removeAttr("modal-closing");
+        $modal[0].close();
+        $openModal.blur();
+    });
 });
 
-// Event listeners
-startBtn.addEventListener('click', startGame);
-answerButtons.forEach(answer => answer.addEventListener('click', selectAnswer));
-nextBtn.addEventListener('click', nextQuestion);
-playAgainBtn.addEventListener('click', () => {
-    window.location.reload(); // Reload to restart the game
-});
+// Check for service worker registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+            .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch((error) => {
+                console.error('Service Worker registration failed:', error);
+            });
+    });
+}

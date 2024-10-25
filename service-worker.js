@@ -5,8 +5,8 @@ const CACHE_NAME = 'trivia-app-cache-v1';
 const urlsToCache = [
   './',
   './index.html',
-  './styles.css',
-  './app.js',
+  './style.css',
+  './main.js',
   './manifest.json',
   './images/logo.png', // Replace with your actual image paths
   './favicon.ico', // Replace with your actual favicon path

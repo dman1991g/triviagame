@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#317EFB"> <!-- Customize the theme color -->
-    <link rel="manifest" href="manifest.json"> <!-- Link to the manifest file -->
-    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS -->
+    <meta name="theme-color" content="#317EFB">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
     <title>Trivia Game</title>
-    <link rel="icon" href="./favicon.ico" type="image/x-icon"> <!-- Add your favicon -->
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container">
@@ -18,28 +18,7 @@
             <button id="start-btn" disabled>Start Game</button>
         </section>
 
-        <!-- Question sections dynamically populated by JavaScript -->
-        <section class="question" id="question-1" style="display: none;">
-            <h2 class="question-title"></h2>
-            <div class="answers">
-                <button class="answer" id="answer-selection-1">
-                    <span class="indicator"></span> <span class="answer-text"></span>
-                </button>
-                <button class="answer" id="answer-selection-2">
-                    <span class="indicator"></span> <span class="answer-text"></span>
-                </button>
-                <button class="answer" id="answer-selection-3">
-                    <span class="indicator"></span> <span class="answer-text"></span>
-                </button>
-                <button class="answer" id="answer-selection-4">
-                    <span class="indicator"></span> <span class="answer-text"></span>
-                </button>
-                <button class="next-question" disabled>Next Question</button>
-            </div>
-        </section>
-
-        <!-- Game end section -->
-        <section id="game-end" style="display: none;">
+        <section id="game-end">
             <h2>Game Over!</h2>
             <div id="user-display" style="display:none;"></div>
             <span id="score">Your score: <span id="score-value"></span></span>
@@ -47,12 +26,24 @@
         </section>
     </div>
 
-    <!-- Load jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Load main JavaScript file -->
+    <!-- Dialog Modal for Questions -->
+    <dialog id="modal" class="modal">
+        <div class="modal-content">
+            <button id="modal-close">Close</button>
+            <h2 class="question-title"></h2>
+            <div class="answers">
+                <button class="answer" id="answer-selection-1"><span class="answer-text"></span></button>
+                <button class="answer" id="answer-selection-2"><span class="answer-text"></span></button>
+                <button class="answer" id="answer-selection-3"><span class="answer-text"></span></button>
+                <button class="answer" id="answer-selection-4"><span class="answer-text"></span></button>
+            </div>
+            <button class="next-question" disabled>Next Question</button>
+        </div>
+    </dialog>
+
     <script src="main.js" type="module"></script>
+    
     <script>
-        // Register the service worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./service-worker.js')
@@ -65,5 +56,6 @@
             });
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

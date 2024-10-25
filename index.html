@@ -18,20 +18,28 @@
             <button id="start-btn" disabled>Start Game</button>
         </section>
 
-        <!-- Add your question sections dynamically here -->
-        <section class="question" id="question-1">
+        <!-- Question sections dynamically populated by JavaScript -->
+        <section class="question" id="question-1" style="display: none;">
             <h2 class="question-title"></h2>
             <div class="answers">
-                <button class="answer" id="answer-selection-1"><span class="indicator"></span> <span class="answer-text"></span></button>
-                <button class="answer" id="answer-selection-2"><span class="indicator"></span> <span class="answer-text"></span></button>
-                <button class="answer" id="answer-selection-3"><span class="indicator"></span> <span class="answer-text"></span></button>
-                <button class="answer" id="answer-selection-4"><span class="indicator"></span> <span class="answer-text"></span></button>
+                <button class="answer" id="answer-selection-1">
+                    <span class="indicator"></span> <span class="answer-text"></span>
+                </button>
+                <button class="answer" id="answer-selection-2">
+                    <span class="indicator"></span> <span class="answer-text"></span>
+                </button>
+                <button class="answer" id="answer-selection-3">
+                    <span class="indicator"></span> <span class="answer-text"></span>
+                </button>
+                <button class="answer" id="answer-selection-4">
+                    <span class="indicator"></span> <span class="answer-text"></span>
+                </button>
                 <button class="next-question" disabled>Next Question</button>
             </div>
         </section>
 
-        <!-- End section -->
-        <section id="game-end">
+        <!-- Game end section -->
+        <section id="game-end" style="display: none;">
             <h2>Game Over!</h2>
             <div id="user-display" style="display:none;"></div>
             <span id="score">Your score: <span id="score-value"></span></span>
@@ -39,7 +47,10 @@
         </section>
     </div>
 
-    <script src="main.js" type="module"></script> <!-- Load your main JS file -->
+    <!-- Load jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Load main JavaScript file -->
+    <script src="main.js" type="module"></script>
     <script>
         // Register the service worker
         if ('serviceWorker' in navigator) {

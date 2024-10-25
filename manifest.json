@@ -1,7 +1,8 @@
 {
   "name": "Trivia Game",
   "short_name": "Trivia",
-  "start_url": "./index.html",
+  {
+  "start_url": "https://dman1991g.github.io/triviagame/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3f51b5",

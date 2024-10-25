@@ -1,65 +1,56 @@
-// Fetch JSON data instead of importing
-let questions = [];
-let users = [];
-
-fetch('./questions.json')
-    .then(response => response.json())
-    .then(data => { questions = data; })
-    .catch(error => console.error('Failed to load questions:', error));
-
-fetch('./users.json')
-    .then(response => response.json())
-    .then(data => { users = data; })
-    .catch(error => console.error('Failed to load users:', error));
+// Import JSON files
+import questions from './questions.json' assert { type: 'json' };
 
 // Get all DOM elements
 const container = document.querySelector('.container');
 const usernameInput = document.getElementById('username');
 const validationMsg = document.getElementById('validation-msg');
 const startBtn = document.getElementById('start-btn');
-const nextBtns = document.querySelectorAll('.next-question');
+const nextBtn = document.querySelector('.next-question');
 const playAgainBtn = document.getElementById('play-again');
 const startSection = document.getElementById('start');
 const currentUserDisplay = document.getElementById('user-display');
-const questionGroups = document.querySelectorAll('.question');
 const endSection = document.getElementById('game-end');
 const finalScoreSpan = document.getElementById('score-value');
+const modal = document.getElementById('modal');
+const closeModal = document.getElementById('modal-close');
 const answerButtons = document.querySelectorAll('.answer');
 
-const answers = [...answerButtons];
-
+// Game state variables
 let currentUser = '';
 let runningScore = 0;
 let currentQuestionIndex = 0;
 let selectedAnswer = '';
 let correctAnswer = '';
 
-// Enable start button when username is entered
-usernameInput.addEventListener('input', () => {
-    startBtn.disabled = !usernameInput.value.trim();
-});
-
+// Start Game
 const startGame = () => {
-    currentUser = usernameInput.value.trim();
+    currentUser = usernameInput.value;
     currentUserDisplay.innerText = `Player: ${currentUser}`;
     currentUserDisplay.style.display = 'block';
     startSection.style.display = 'none';
     loadQuestion();
 };
 
+// Load question and display modal
 const loadQuestion = () => {
     const currentQuestion = questions[currentQuestionIndex];
     document.querySelector('.question-title').innerText = currentQuestion.question;
 
+    // Populate answers
     const answerNodes = Array.from(document.querySelectorAll('.answer-text'));
     answerNodes.forEach((node, index) => {
         node.innerText = currentQuestion.answers[index];
-        answers[index].style.color = ''; // Reset color
+        answerButtons[index].style.color = ''; // Reset answer colors
     });
 
     correctAnswer = currentQuestion.correctAnswer;
+
+    // Open modal for question display
+    modal.showModal();
 };
 
+// Answer selection
 const selectAnswer = (e) => {
     selectedAnswer = e.target.querySelector('.answer-text').innerText;
 
@@ -70,40 +61,43 @@ const selectAnswer = (e) => {
         e.target.style.color = 'red';
     }
 
-    nextBtns[0].removeAttribute('disabled');
+    nextBtn.removeAttribute('disabled'); // Enable next button
 };
 
+// Next question or end game
 const nextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
         loadQuestion();
-        nextBtns[0].setAttribute('disabled', ''); // Disable next button
+        nextBtn.setAttribute('disabled', ''); // Disable next button
     } else {
         endGame();
     }
 };
 
+// End Game
 const endGame = () => {
     endSection.style.display = 'block';
     finalScoreSpan.innerText = runningScore.toString();
     container.style.display = 'none';
+    modal.close(); // Close the modal at the end
 };
 
-startBtn.addEventListener('click', startGame);
-answers.forEach(answer => answer.addEventListener('click', selectAnswer));
-nextBtns[0].addEventListener('click', nextQuestion);
-playAgainBtn.addEventListener('click', () => {
-    window.location.reload();
+// Modal close event listeners
+modal.addEventListener('click', (e) => {
+    if (e.target.nodeName === "DIALOG") {
+        modal.close();
+    }
 });
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js')
-            .then((registration) => {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch((error) => {
-                console.error('Service Worker registration failed:', error);
-            });
-    });
-}
+closeModal.addEventListener("click", () => {
+    modal.close();
+});
+
+// Event listeners
+startBtn.addEventListener('click', startGame);
+answerButtons.forEach(answer => answer.addEventListener('click', selectAnswer));
+nextBtn.addEventListener('click', nextQuestion);
+playAgainBtn.addEventListener('click', () => {
+    window.location.reload(); // Reload to restart the game
+});

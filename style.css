@@ -1,129 +1,127 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Vibur&family=Xanh+Mono:ital@0;1&family=Yellowtail&display=swap');
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-:root {
-  --decorative-font: 'Vibur', cursive;
-  --accent-font: "Bebas Neue", sans-serif;
-  --primary-font: "Helvetica Neue", sans-serif;
-  --header-height: 16.25rem;
-  --error-color: rgb(211, 70, 70);
-  --text-shadow--light: #dacdd9;
-  --alt-text-shadow--light: #afdbee;
-  --text-shadow--dark: #CF61CB;
-  --alt-text-shadow--dark: #19A8E6;
-  --alt-text-shadow--darker: #12749e;
-  --violet-neon:     
-      0 0 7px var(--text-shadow--light),
-      0 0 10px var(--text-shadow--light),
-      0 0 21px var(--text-shadow--light),
-      0 0 42px var(--text-shadow--dark),
-      0 0 82px var(--text-shadow--dark),
-      0 0 92px var(--text-shadow--dark),
-      0 0 102px var(--text-shadow--dark),
-      0 0 151px var(--text-shadow--dark);
-  --violet-neon-box: 
-      0 0 .2rem var(--text-shadow--light),
-      0 0 .2rem var(--text-shadow--light),
-      0 0 2rem var(--text-shadow--dark),
-      0 0 0.8rem var(--text-shadow--dark),
-      0 0 2.8rem var(--text-shadow--dark),
-      inset 0 0 1.3rem var(--text-shadow--dark);
-  --blue-neon:     
-      0 0 7px var(--alt-text-shadow--light),
-      0 0 10px var(--alt-text-shadow--light),
-      0 0 21px var(--alt-text-shadow--light),
-      0 0 42px var(--alt-text-shadow--dark),
-      0 0 82px var(--alt-text-shadow--dark),
-      0 0 92px var(--alt-text-shadow--dark),
-      0 0 102px var(--alt-text-shadow--dark),
-      0 0 151px var(--alt-text-shadow--dark);
-  --blue-neon-box: 
-      0 0 .2rem #fff,
-      0 0 .2rem #fff,
-      0 0 2rem var(--alt-text-shadow--dark),
-      0 0 0.8rem var(--alt-text-shadow--dark),
-      0 0 2.8rem var(--alt-text-shadow--dark),
-      inset 0 0 1.3rem var(--alt-text-shadow--dark); 
-}
-
+/* General Styles */
 body {
-  background-image: url('media/wall.jpg');
-  background-attachment: fixed;
-  background-size: cover;
+    background: url('your-background-image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
-#username {
-  padding-inline: 1.5rem;
-  font-size: 1.5rem;
-  font-family: var(--primary-font);
-  outline: none;
-  width: 100%;
-  color: var(--alt-text-shadow--darker);
-  margin-bottom: 0.5rem;
-  border: 2px solid var(--alt-text-shadow--dark); /* Visible focus border */
-  -webkit-appearance: none; /* iOS default behavior reset */
-  touch-action: manipulation; /* Better handling of touch input */
-  cursor: text; /* Force text cursor */
-  transition: border-color 0.2s ease-in-out; /* Smooth focus border transition */
+.container {
+    width: 90%;
+    max-width: 500px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
 }
 
-#username:focus {
-  outline: none;
-  border-color: var(--alt-text-shadow--light); /* Change on focus for visibility */
-  box-shadow: 0px 0px 5px 1px var(--alt-text-shadow--light); /* Optional shadow for focus */
+/* Header */
+h1 {
+    font-size: 2em;
+    color: #f0f0f0;
+    margin-bottom: 10px;
 }
 
-.header {
-  color: #fff;
-  text-align: center;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+/* Input Field */
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    font-size: 1em;
+    margin-bottom: 15px;
+    border: 2px solid #00acee;
+    border-radius: 5px;
+    color: #333;
+    background-color: #f9f9f9;
 }
 
-.header > h1 {
-  padding: 1.5rem;
-  font-size: 6.5rem;
-  font-family: var(--decorative-font);
-  letter-spacing: 1rem;
-  text-shadow: var(--violet-neon);
+/* Buttons */
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00acee;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.header > h2 {
-  font-family: var(--accent-font);
-  font-size: 2.5rem;
-  letter-spacing: 1.5rem;
-  margin-top: -3rem;
-  margin-left: 1rem;
-  text-shadow: var(--blue-neon);
+button:hover {
+    background-color: #007bb5;
 }
 
-.mobile-subheading {
-  display: none;
-}
-
-@media (max-width: 700px) {
-  #username {
-    padding-inline: 1.2rem;
-    font-size: 1.1rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .header > h1 {
-    font-size: 3.5rem;
-  }
-
-  .header > .mobile-subheading {
+/* Start and Next Buttons */
+.start-btn, .next-btn {
     display: block;
-    font-size: 1.5rem;
-    margin-top: -0.5rem;
-    font-family: var(--accent-font);
-    letter-spacing: 1.5rem;
-    margin-left: 1.2rem;
-    text-shadow: var(--blue-neon);
-  }
+    width: 100%;
+    max-width: 200px;
+    margin: 10px auto;
+}
+
+/* Question Text */
+.question {
+    font-size: 1.2em;
+    margin: 20px 0;
+}
+
+/* Answer Buttons */
+.answer-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.answer-btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 1em;
+    margin: 5px 0;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.answer-btn:hover {
+    background-color: #104e8b;
+}
+
+/* Score Display */
+.score {
+    font-size: 1.5em;
+    color: #00ff7f;
+    margin: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .question {
+        font-size: 1em;
+    }
+
+    .answer-btn {
+        font-size: 0.9em;
+    }
 }

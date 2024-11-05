@@ -1,5 +1,5 @@
 // Name of the cache
-const CACHE_NAME = 'trivia-app-cache-v1';
+const CACHE_NAME = 'trivia-app-cache-v2';
 
 // Files to cache
 const urlsToCache = [
